@@ -197,7 +197,11 @@ function serviceWorkerAct() {
 // Uninstall Service Worker
 function serviceWorkerDeact() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.unregister().then(function () {
+    console.log('CLIENT: service worker uninstallation in progress.');
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
       console.log('CLIENT: All Service Worker Uninstall Successfully.');
     }, function () {
       console.log('CLIENT: service worker uninstall failure.');
